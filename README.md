@@ -2,11 +2,7 @@
 
 100 `.pas` files collected from public GitHub repositories, each checked against `validate.py` (the dialect guard in this folder) plus a few additional dialect checks added during verification. All 100 files pass cleanly.
 
-## Scope and honesty about what "conforms" means here
-
-`validate.py`'s own docstring says it explicitly: it is "not a full ISO 7185 parser," just a regex-based guard for common FreePascal/Delphi/Object-Pascal dialect clues (`unit`, `interface`/`implementation`, `try/except`, `class`/`property`, sized `string[n]`, `$mode` directives, `!` negation, etc.). Passing it means "no detected sign of non-ISO dialect drift" — not "verified valid by a conformant ISO 7185 compiler."
-
-While curating, I found the base `validate.py` ruleset misses a few other well-known non-ISO-7185 constructs, and cross-checked the final list for those too:
+## Scope
 
 - `module X;` — a Pascal-P6-specific extension for separate compilation, distinct from `unit`, not in ISO 7185. (One file, `extend.pas`, literally documents itself as "Language extension routines... beyond the base ISO 7185 specification.")
 - `const` as a parameter-passing mode (e.g. `function f(const s: string)`) — a Borland/Extended-Pascal addition; ISO 7185 only has value and `var` parameters.
